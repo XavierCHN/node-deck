@@ -1,0 +1,29 @@
+{
+    "name" : "deck",
+    "description" : "Shuffle, random choice, weighted selection",
+    "version" : "0.0.1",
+    "repository" : {
+        "type" : "git",
+        "url" : "git://github.com/substack/node-deck.git"
+    },
+    "main" : "./index.js",
+    "directories" : {
+        "lib" : ".",
+        "examples" : "./examples"
+    },
+    "scripts" : {
+        "test" : "expresso"
+    },
+    "engines" : {
+        "node" : ">=0.4.0"
+    },
+    "devDependencies" : {
+        "expresso" : ">=0.7.0"
+    },
+    "license" : "MIT/X11",
+    "author" : {
+        "name" : "James Halliday",
+        "email" : "mail@substack.net",
+        "url" : "http://substack.net"
+    }
+}
