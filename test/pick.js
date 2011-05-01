@@ -62,3 +62,8 @@ exports.weightedPick = function () {
         deck.pick({ a : 5, b : 2, c : /moo/ });
     });
 };
+ 
+exports.pickEmpty = function () {
+    assert.ok(deck.pick([]) === undefined);
+    assert.ok(deck.pick({}) === undefined);
+};

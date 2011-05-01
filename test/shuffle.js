@@ -54,3 +54,8 @@ exports.weightedShuffle = function () {
         deck.shuffle({ a : 1, b : 'x', c : 5 });
     });
 };
+
+exports.shuffleEmpty = function () {
+    assert.ok(deck.shuffle([]) === undefined);
+    assert.ok(deck.shuffle({}) === undefined);
+};
