@@ -35,7 +35,18 @@ exports.weightedShuffle = function () {
         counts[x] = (counts[x] || 0) + 1;
     }
     
-    var cab = (10 / 14) * (3 / 4) * loops;
-    assert.ok(counts.cab >= 0.95 * cab);
-    assert.ok(counts.cab <= 1.05 * cab);
+    function margins (key) {
+        var keys = key.split('');
+        var expected = key.split('').reduce(function (p, x) {
+            var p_ = p * weights[x] / keys.reduce(function (acc, k) {
+                return acc + weights[k];
+            }, 0);
+            keys.shift();
+            return p_;
+        }, loops);
+        assert.ok(counts[key] >= 0.95 * expected);
+        assert.ok(counts[key] <= 1.05 * expected);
+    }
+    
+    Object.keys(counts).every(margins);
 };
