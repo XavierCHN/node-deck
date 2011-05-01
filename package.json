@@ -9,7 +9,7 @@
     "main" : "./index.js",
     "directories" : {
         "lib" : ".",
-        "examples" : "./examples"
+        "example" : "./example"
     },
     "scripts" : {
         "test" : "expresso"
