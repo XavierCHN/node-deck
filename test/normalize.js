@@ -13,4 +13,8 @@ exports.normalize = function () {
         deck.normalize({ a : 0.1, b : 0.2, c : 0.05 }),
         { a : 0.1 / t, b : 0.2 / t, c : 0.05 / t }
     );
+    
+    assert.throws(function () {
+        deck.normalize({ a : 0.1, b : 0.2, c : [] });
+    });
 };

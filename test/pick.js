@@ -57,4 +57,8 @@ exports.weightedPick = function () {
             counts[key] / weights[key] * total <= loops * 1.05
         );
     });
+    
+    assert.throws(function () {
+        deck.pick({ a : 5, b : 2, c : /moo/ });
+    });
 };

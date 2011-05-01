@@ -49,4 +49,8 @@ exports.weightedShuffle = function () {
     }
     
     Object.keys(counts).every(margins);
+    
+    assert.throws(function () {
+        deck.shuffle({ a : 1, b : 'x', c : 5 });
+    });
 };
