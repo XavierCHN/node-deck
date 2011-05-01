@@ -1,6 +1,6 @@
 var exports = module.exports = function (xs) {
     if (typeof xs !== 'object') { // of which Arrays are
-        throw new TypeError('Must be an Array or object');
+        throw new TypeError('Must be an Array or an object');
     }
     
     return Object.keys(exports).reduce(function (acc, name) {
@@ -38,7 +38,7 @@ exports.shuffle = function (xs) {
         return ret;
     }
     else {
-        throw new TypeError('Must be an Array or object');
+        throw new TypeError('Must be an Array or an object');
     }
 };
 
@@ -62,7 +62,7 @@ exports.pick = function (xs) {
         throw new Error('Exceeded threshold. Something is very wrong.');
     }
     else {
-        throw new TypeError('Must be an Array');
+        throw new TypeError('Must be an Array or an object');
     }
 };
 
@@ -76,7 +76,12 @@ exports.normalize = function (weights) {
         if (x < 0) {
             throw new Error('Negative weight encountered at key ' + key);
         }
-        return sum + x;
+        else if (typeof x !== 'number') {
+            throw new TypeError('Number expected, got ' + typeof x);
+        }
+        else {
+            return sum + x;
+        }
     }, 0);
     
     return total === 1
