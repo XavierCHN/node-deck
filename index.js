@@ -37,6 +37,16 @@ exports.pick = function (xs) {
     else if (typeof xs === 'object') {
         // weighted sample
         var weights = exports.normalize(xs);
+        
+        var n = Math.random();
+        var threshold = 0;
+        var keys = Object.keys(weights);
+        
+        for (var i = 0; i < keys.length; i++) {
+            threshold += weights[keys[i]];
+            if (n < threshold) return keys[i];
+        }
+        throw new Error('Exceeded threshold. Something is very wrong.');
     }
     else {
         throw new TypeError('Must be an Array');
