@@ -1,6 +1,6 @@
 {
     "name" : "deck",
-    "description" : "Shuffle, random choice, weighted selection",
+    "description" : "Uniform and weighted shuffling and sampling",
     "version" : "0.0.1",
     "repository" : {
         "type" : "git",

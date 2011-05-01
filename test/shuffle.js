@@ -10,7 +10,7 @@ function shuffler (fn, x) {
     assert.ok(xs.every(function (x) {
         return xs_.indexOf(x) >= 0
     }));
-};
+}
 
 exports.shuffle = function (xs) {
     shuffler(deck.shuffle, xs);

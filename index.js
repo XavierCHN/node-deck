@@ -1,6 +1,6 @@
 var exports = module.exports = function (xs) {
-    if (!Array.isArray(xs)) {
-        throw new TypeError('Must be an Array');
+    if (typeof xs !== 'object') { // of which Arrays are
+        throw new TypeError('Must be an Array or object');
     }
     
     return Object.keys(exports).reduce(function (acc, name) {
@@ -10,23 +10,54 @@ var exports = module.exports = function (xs) {
 };
 
 exports.shuffle = function (xs) {
-    if (!Array.isArray(xs)) {
-        throw new TypeError('Must be an Array');
+    if (Array.isArray(xs)) {
+        // uniform shuffle
+        var ys = xs.slice();
+        var res = [];
+        while (ys.length > 0) {
+            var n = Math.floor(Math.random() * ys.length);
+            res.push(ys.splice(n, 1)[0]);
+        }
+        return res;
     }
-    
-    var ys = xs.slice();
-    var res = [];
-    while (ys.length > 0) {
-        var n = Math.floor(Math.random() * ys.length);
-        res.push(ys.splice(n, 1)[0]);
+    else if (typeof xs === 'object') {
+        // weighted shuffle
+        
     }
-    
-    return res;
+    else {
+        throw new TypeError('Must be an Array or object');
+    }
 };
 
-exports.pick = function pick (xs) {
-    if (!Array.isArray(xs)) {
+exports.pick = function (xs) {
+    if (Array.isArray(xs)) {
+        // uniform sample
+        return xs[Math.floor(Math.random() * xs.length)];
+    }
+    else if (typeof xs === 'object') {
+        // weighted sample
+        var weights = exports.normalize(xs);
+    }
+    else {
         throw new TypeError('Must be an Array');
     }
-    return xs[Math.floor(Math.random() * xs.length)];
+};
+
+exports.normalize = function (weights) {
+    if (typeof weights !== 'object' || Array.isArray(weights)) {
+        throw 'Not an object'
+    }
+    
+    var total = Object.keys(weights).reduce(function (sum, key) {
+        var x = weights[key];
+        if (x < 0) {
+            throw new Error('Negative weight encountered at key ' + key);
+        }
+        return sum + x;
+    }, 0);
+    
+    return Object.keys(weights).reduce(function (acc, key) {
+        acc[key] = weights[key] / total;
+        return acc;
+    }, {});
 };
