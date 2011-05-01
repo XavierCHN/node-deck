@@ -35,8 +35,6 @@ exports.weightedShuffle = function () {
         counts[x] = (counts[x] || 0) + 1;
     }
     
-    eql(Object.keys(counts).sort(), Object.keys(weights).sort());
-    
     var cab = (10 / 14) * (3 / 4) * loops;
     assert.ok(counts.cab >= 0.95 * cab);
     assert.ok(counts.cab <= 1.05 * cab);

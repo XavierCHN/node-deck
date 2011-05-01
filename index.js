@@ -22,7 +22,20 @@ exports.shuffle = function (xs) {
     }
     else if (typeof xs === 'object') {
         // weighted shuffle
+        var weights = Object.keys(xs).reduce(function (acc, key) {
+            acc[key] = xs[key];
+            return acc;
+        }, {});
         
+        var ret = [];
+        
+        while (Object.keys(weights).length > 0) {
+            var key = exports.pick(weights);
+            delete weights[key];
+            ret.push(key);
+        }
+        
+        return ret;
     }
     else {
         throw new TypeError('Must be an Array or object');
@@ -66,8 +79,11 @@ exports.normalize = function (weights) {
         return sum + x;
     }, 0);
     
-    return Object.keys(weights).reduce(function (acc, key) {
-        acc[key] = weights[key] / total;
-        return acc;
-    }, {});
+    return total === 1
+        ? weights
+        : Object.keys(weights).reduce(function (acc, key) {
+            acc[key] = weights[key] / total;
+            return acc;
+        }, {})
+    ;
 };
