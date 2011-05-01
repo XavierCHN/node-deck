@@ -50,6 +50,7 @@ exports.pick = function (xs) {
     else if (typeof xs === 'object') {
         // weighted sample
         var weights = exports.normalize(xs);
+        if (!weights) return undefined;
         
         var n = Math.random();
         var threshold = 0;
@@ -71,7 +72,10 @@ exports.normalize = function (weights) {
         throw 'Not an object'
     }
     
-    var total = Object.keys(weights).reduce(function (sum, key) {
+    var keys = Object.keys(weights);
+    if (keys.length === 0) return undefined;
+    
+    var total = keys.reduce(function (sum, key) {
         var x = weights[key];
         if (x < 0) {
             throw new Error('Negative weight encountered at key ' + key);
@@ -86,7 +90,7 @@ exports.normalize = function (weights) {
     
     return total === 1
         ? weights
-        : Object.keys(weights).reduce(function (acc, key) {
+        : keys.reduce(function (acc, key) {
             acc[key] = weights[key] / total;
             return acc;
         }, {})

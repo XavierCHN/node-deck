@@ -1,12 +1,11 @@
 var deck = require('deck');
 var assert = require('assert');
-var eql = assert.deepEqual;
 
 function shuffler (fn) {
     var xs = [0,1,2,3,4,5,6,7,8,9];
     var xs_ = fn(xs);
-    eql(xs, [0,1,2,3,4,5,6,7,8,9], 'shuffle mutated its argument');
-    eql(xs.length, 10);
+    assert.eql(xs, [0,1,2,3,4,5,6,7,8,9], 'shuffle mutated its argument');
+    assert.eql(xs.length, 10);
     assert.ok(xs.every(function (x) {
         return xs_.indexOf(x) >= 0
     }));
@@ -23,7 +22,7 @@ exports.shuffleObj = function () {
 };
 
 exports.weightedShuffle = function () {
-    eql(deck.shuffle({ a : 1000, b : 0.01 }), [ 'a', 'b' ]);
+    assert.eql(deck.shuffle({ a : 1000, b : 0.01 }), [ 'a', 'b' ]);
     
     var weights = { a : 3, b : 1, c : 10 };
     var total = 3 + 1 + 10;
@@ -56,6 +55,6 @@ exports.weightedShuffle = function () {
 };
 
 exports.shuffleEmpty = function () {
-    assert.ok(deck.shuffle([]) === undefined);
-    assert.ok(deck.shuffle({}) === undefined);
+    assert.eql(deck.shuffle([]), []);
+    assert.eql(deck.shuffle({}), []);
 };
