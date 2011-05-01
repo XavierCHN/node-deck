@@ -21,3 +21,23 @@ exports.shuffleObj = function () {
         return deck(xs).shuffle()
     });
 };
+
+exports.weightedShuffle = function () {
+    eql(deck.shuffle({ a : 1000, b : 0.01 }), [ 'a', 'b' ]);
+    
+    var weights = { a : 3, b : 1, c : 10 };
+    var total = 3 + 1 + 10;
+    var loops = 5000;
+    
+    var counts = {};
+    for (var i = 0; i < loops; i++) {
+        var x = deck.shuffle(weights).join('');
+        counts[x] = (counts[x] || 0) + 1;
+    }
+    
+    eql(Object.keys(counts).sort(), Object.keys(weights).sort());
+    
+    var cab = (10 / 14) * (3 / 4) * loops;
+    assert.ok(counts.cab >= 0.95 * cab);
+    assert.ok(counts.cab <= 1.05 * cab);
+};
