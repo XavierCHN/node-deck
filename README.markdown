@@ -114,4 +114,4 @@ installation
 
 With [npm](http://npmjs.org):
 
-    npm install shuffle
+    npm install deck
